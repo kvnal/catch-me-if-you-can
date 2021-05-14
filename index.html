@@ -1,90 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<style>
-    *{
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
+  </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+    * {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      background: #121212;
+
+      /* background-color: #121212; */
     }
 
-    div{
-        width: 100%;
-        height: 90vh;
-        position: relative;
-        border: 2px solid black;
-    }
-    .object{
-        position: absolute;
-        background-color: yellow;
-        padding: 10px;
-        height: 40px;
-        width: 40px;
-        top: 50%;
-        left: 50%;
-        cursor: pointer;
-        
+    .head {
+      height: 15vh;
+      font-family: "Roboto", sans-serif;
+      background: #121212;
+      color: #f5ff56;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
     }
 
-</style>
-<body>
+    .container {
+      width: 100%;
+      height: 80vh;
+      position: relative;
+    }
+    .object {
+      position: absolute;
+      background-color: white;
+      box-sizing: content-box;
+      padding: 20px;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      cursor: pointer;
+      background-image: url(https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/ninja.png);
+      -webkit-background-size: cover;
+    }
 
-    <div class="container">
-        <div class="object">
-
-        </div>
+    img {
+      position: absolute;
+      height: fit-content;
+      width: fit-content;
+    }
+  </style>
+  <body>
+    <div class="head">
+      <p>Tap Doge Master to Win</p>
     </div>
-</body>
-<script>
-
-    const container = document.querySelector(".container")
+    <div class="container">
+      <div class="object"></div>
+    </div>
+  </body>
+  <script>
+    const container = document.querySelector(".container");
     var HEIGHT = container.offsetHeight;
     var WIDTH = container.offsetWidth;
     var X = 0;
     var Y = 0;
-    var W=0;
-    var H=0;
+    var W = 0;
+    var H = 0;
 
-    const obj = document.querySelector('.object')
-    
-    const generateCoords = ()=>{
-        H= Math.floor(Math.random()*(90))+10
-        W= Math.floor(Math.random()*(90))+10
-        X = Math.floor(Math.random()*(WIDTH -W))
-        Y= Math.floor(Math.random()*(HEIGHT-H))
-    }
+    const LINES = [
+      "Hooooo!",
+      "Yaaaaaa!!!!",
+      "That was quick...",
+      "Take A Break! Kid.",
+      "Don't waste my time.",
+      "GO HOME. Kid",
+      "Ohh! God",
+      "You are learning.",
+      "Keep trying...",
+      "Reallly??",
+      "Go HOME and watch Cartoon.",
+    ];
+    const DEFEATED =
+      "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE-MASTERRRRRR.";
 
-    const changeCoords =()=>{
-        generateCoords();
-        obj.style.top=`${Y}px`;
-        obj.style.left=`${X}px`;
-        obj.style.width=`${W}px`;
-        obj.style.height=`${H}px`;
-    }
+    const img = new Image();
+    img.src =
+      "https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/defeated.png";
 
-    window.addEventListener('resize',(e)=>{
-        // window.location.reload()
-         HEIGHT = container.offsetHeight;
-         WIDTH = container.offsetWidth;
-         console.log("screen change! ");
-         console.log(`${HEIGHT} ${WIDTH}`);
-         //try full screen!
+    const obj = document.querySelector(".object");
+    const lines = document.getElementsByTagName("P");
 
-    })
+    const generateCoords = () => {
+      H = Math.floor(Math.random() * 90) + 10;
+      W = Math.floor(Math.random() * 90) + 10;
+      X = Math.floor(Math.random() * (WIDTH - W));
+      Y = Math.floor(Math.random() * (HEIGHT - H));
+      lines[0].innerHTML = LINES[H % LINES.length];
+    };
 
+    const changeCoords = () => {
 
-    obj.addEventListener('mouseover',changeCoords)
+    lines[0].style.color="#60ff56"
 
-    obj.addEventListener('click',(e)=>{
-        obj.style.backgroundColor="red"
-        obj.removeEventListener('mouseover',changeCoords)
-        //imposible
-    })
-</script>
+      generateCoords();
+      obj.style.top = `${Y}px`;
+      obj.style.left = `${X}px`;
+      obj.style.width = `${W}px`;
+      obj.style.height = `${H}px`;
+    };
+
+    window.addEventListener("resize", (e) => {
+      // window.location.reload()
+      HEIGHT = container.offsetHeight;
+      WIDTH = container.offsetWidth;
+      console.log("screen change! ");
+      console.log(`${HEIGHT} ${WIDTH}`);
+      obj.remove();
+      lines[0].style.color = "#ff3c3c";
+        lines[0].style.fontSize="24px"
+      lines[0].innerHTML = "Try Full Screen! and Be prepared - Doge Master";
+
+    });
+
+    obj.addEventListener("mouseover", changeCoords);
+
+    obj.addEventListener("click", (e) => {
+      obj.style.backgroundColor = "#ff3c3c";
+      obj.style.backgroundImage = `url(${img.src})`;
+      obj.removeEventListener("mouseover", changeCoords);
+      lines[0].innerHTML = DEFEATED;
+    });
+  </script>
 </html>
-
