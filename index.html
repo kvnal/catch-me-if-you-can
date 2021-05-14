@@ -26,6 +26,7 @@
       font-size: 28px;
       display: flex;
       align-items: center;
+      justify-content: center;
       padding-left: 20px;
     }
 
@@ -83,9 +84,15 @@
       "Keep trying...",
       "Reallly??",
       "Go HOME and watch Cartoon.",
+      "Really, you call that! Kung FU?",
+      "Really poor effort",
+      "Try harder, Kid",
+      "Are you taking this seriously?",
+      "You want to defeat Doge Master! With That?"
+
     ];
     const DEFEATED =
-      "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE-MASTERRRRRR.";
+      "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE MASTER.";
 
     const img = new Image();
     img.src =
@@ -105,6 +112,7 @@
     const changeCoords = () => {
 
     lines[0].style.color="#60ff56"
+    lines[0].style.fontSize="36px"
 
       generateCoords();
       obj.style.top = `${Y}px`;
@@ -126,12 +134,14 @@
 
     });
 
-    obj.addEventListener("mouseover", changeCoords);
+    // obj.addEventListener("mouseover", changeCoords);
 
     obj.addEventListener("click", (e) => {
       obj.style.backgroundColor = "#ff3c3c";
       obj.style.backgroundImage = `url(${img.src})`;
       obj.removeEventListener("mouseover", changeCoords);
+      lines[0].style.color = "#ff3c3c";
+        lines[0].style.fontSize="24px";
       lines[0].innerHTML = DEFEATED;
     });
   </script>
