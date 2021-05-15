@@ -37,7 +37,7 @@
     }
     .object {
       position: absolute;
-      background-color: white;
+      /* background-color: white; */
       box-sizing: content-box;
       padding: 20px;
       height: 40px;
@@ -45,8 +45,9 @@
       top: 50%;
       left: 50%;
       cursor: pointer;
-      background-image: url(https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/ninja.png);
-      -webkit-background-size: cover;
+      /* background-image: url(https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/ninja.png); */
+      background-image: url(./assets/ninja.png);
+      -webkit-background-size:cover;
     }
 
     img {
@@ -71,6 +72,7 @@
     var Y = 0;
     var W = 0;
     var H = 0;
+    var STARTED = false;
 
     const LINES = [
       "Hooooo!",
@@ -88,15 +90,21 @@
       "Really poor effort",
       "Try harder, Kid",
       "Are you taking this seriously?",
-      "You want to defeat Doge Master! With That?"
+      "You want to defeat Doge Master! With That?",
+      "You can't even tap me?",
+      "This is what we call Samurai Moveeeee"
 
     ];
     const DEFEATED =
       "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE MASTER.";
 
     const img = new Image();
-    img.src =
-      "https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/defeated.png";
+    const imgBlack = new Image();
+
+    // img.src =
+    //   "https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/defeated.png";
+    img.src="./assets/defeated.png"
+    imgBlack.src="./assets/ninja-black.png"
 
     const obj = document.querySelector(".object");
     const lines = document.getElementsByTagName("P");
@@ -110,11 +118,15 @@
     };
 
     const changeCoords = () => {
-
+      if(!STARTED){
+        obj.style.backgroundImage = `url(${imgBlack.src})`;
+        obj.style.backgroundColor ="#fff"
+        STARTED= true
+      }
     lines[0].style.color="#60ff56"
     lines[0].style.fontSize="36px"
 
-      generateCoords();
+      // generateCoords();
       obj.style.top = `${Y}px`;
       obj.style.left = `${X}px`;
       obj.style.width = `${W}px`;
@@ -134,11 +146,14 @@
 
     });
 
-    // obj.addEventListener("mouseover", changeCoords);
+    obj.addEventListener("mouseover", changeCoords);
 
     obj.addEventListener("click", (e) => {
+      //play sound
+      //autumn fall
       obj.style.backgroundColor = "#ff3c3c";
       obj.style.backgroundImage = `url(${img.src})`;
+      // container.style.backgroundColor="#ff3c3c"
       obj.removeEventListener("mouseover", changeCoords);
       lines[0].style.color = "#ff3c3c";
         lines[0].style.fontSize="24px";
