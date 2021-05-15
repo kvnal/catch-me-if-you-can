@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Doge Master!</title>
+    <link rel="shortcut icon" href="./assets/ninja.png" type="image/x-icon" />
   </head>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
     * {
       padding: 0;
       margin: 0;
       overflow: hidden;
       background: #121212;
-
-      /* background-color: #121212; */
+      user-select: none;
     }
 
     .head {
@@ -37,7 +37,6 @@
     }
     .object {
       position: absolute;
-      /* background-color: white; */
       box-sizing: content-box;
       padding: 20px;
       height: 40px;
@@ -45,9 +44,8 @@
       top: 50%;
       left: 50%;
       cursor: pointer;
-      /* background-image: url(https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/ninja.png); */
       background-image: url(./assets/ninja.png);
-      -webkit-background-size:cover;
+      -webkit-background-size: cover;
     }
 
     img {
@@ -55,109 +53,165 @@
       height: fit-content;
       width: fit-content;
     }
+    .bottom {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-family: monospace;
+      color: white;
+    }
+    .bottom a {
+      color: aqua;
+    }
   </style>
   <body>
     <div class="head">
-      <p>Tap Doge Master to Win</p>
+      <p>Tap Doge Master to Win!</p>
     </div>
     <div class="container">
       <div class="object"></div>
     </div>
+
+    <div class="bottom">
+      <div>
+        <p>Moves : 0</p>
+      </div>
+      <div>
+        <span
+          >How to Win
+          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Tutorial</a
+          >!</span
+        >
+      </div>
+    </div>
   </body>
   <script>
-    const container = document.querySelector(".container");
-    var HEIGHT = container.offsetHeight;
-    var WIDTH = container.offsetWidth;
-    var X = 0;
-    var Y = 0;
-    var W = 0;
-    var H = 0;
-    var STARTED = false;
-
-    const LINES = [
-      "Hooooo!",
-      "Yaaaaaa!!!!",
-      "That was quick...",
-      "Take A Break! Kid.",
-      "Don't waste my time.",
-      "GO HOME. Kid",
-      "Ohh! God",
-      "You are learning.",
-      "Keep trying...",
-      "Reallly??",
-      "Go HOME and watch Cartoon.",
-      "Really, you call that! Kung FU?",
-      "Really poor effort",
-      "Try harder, Kid",
-      "Are you taking this seriously?",
-      "You want to defeat Doge Master! With That?",
-      "You can't even tap me?",
-      "This is what we call Samurai Moveeeee"
-
-    ];
-    const DEFEATED =
-      "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE MASTER.";
-
-    const img = new Image();
-    const imgBlack = new Image();
-
-    // img.src =
-    //   "https://raw.githubusercontent.com/kvnal/catch-me-if-you-can/main/assets/defeated.png";
-    img.src="./assets/defeated.png"
-    imgBlack.src="./assets/ninja-black.png"
-
-    const obj = document.querySelector(".object");
     const lines = document.getElementsByTagName("P");
 
-    const generateCoords = () => {
-      H = Math.floor(Math.random() * 90) + 10;
-      W = Math.floor(Math.random() * 90) + 10;
-      X = Math.floor(Math.random() * (WIDTH - W));
-      Y = Math.floor(Math.random() * (HEIGHT - H));
-      lines[0].innerHTML = LINES[H % LINES.length];
-    };
+    if (
+      !(
+        screen.availWidth - window.innerWidth &&
+        screen.availHeight - window.innerHeight
+      )
+    ) {
+      //moves
+      var click = 0;
 
-    const changeCoords = () => {
-      if(!STARTED){
-        obj.style.backgroundImage = `url(${imgBlack.src})`;
-        obj.style.backgroundColor ="#fff"
-        STARTED= true
-      }
-    lines[0].style.color="#60ff56"
-    lines[0].style.fontSize="36px"
+      //
+      const container = document.querySelector(".container");
+      var HEIGHT = container.offsetHeight;
+      var WIDTH = container.offsetWidth;
 
-      // generateCoords();
-      obj.style.top = `${Y}px`;
-      obj.style.left = `${X}px`;
-      obj.style.width = `${W}px`;
-      obj.style.height = `${H}px`;
-    };
+      //DIV
+      var X = 0;
+      var Y = 0;
+      var W = 0;
+      var H = 0;
+      var STARTED = false;
 
-    window.addEventListener("resize", (e) => {
-      // window.location.reload()
-      HEIGHT = container.offsetHeight;
-      WIDTH = container.offsetWidth;
-      console.log("screen change! ");
-      console.log(`${HEIGHT} ${WIDTH}`);
-      obj.remove();
+      //Dialogs
+      const LINES = [
+        "Hooooo!",
+        "Yaaaaaa!!!!",
+        "That was quick...",
+        "Take A Break! Kid.",
+        "Don't waste my time.",
+        "GO HOME. Kid",
+        "Ohh! God",
+        "You are learning.",
+        "Keep trying...",
+        "Reallly??",
+        "Go HOME and watch Cartoon.",
+        "Really, you call that! Kung FU?",
+        "Really poor effort",
+        "Try harder, Kid",
+        "Are you taking this seriously?",
+        "You want to defeat Doge Master! With That?",
+        "You can't even tap me?",
+        "This is what we call Samurai Moveeeee",
+        "To the Moon!!!!",
+      ];
+      const DEFEATED =
+        "THATS IMPOSSIBLE! NOOOOOOOOO!!!!!!! You can't defeat DOGE MASTER.";
+
+      //Image
+      const img = new Image();
+      const imgBlack = new Image();
+      img.src = "./assets/defeated.png";
+      imgBlack.src = "./assets/ninja-black.png";
+
+      // DOM
+      const obj = document.querySelector(".object");
+
+      //Audio
+      const swordSound = new Audio("./assets/sword.mp3");
+      swordSound.autoplay = false;
+
+      //
+
+      const generateCoords = () => {
+        H = Math.floor(Math.random() * 90) + 10;
+        W = Math.floor(Math.random() * 90) + 10;
+        X = Math.floor(Math.random() * (WIDTH - W));
+        Y = Math.floor(Math.random() * (HEIGHT - H));
+        lines[0].innerHTML = LINES[H % LINES.length];
+      };
+
+      const changeCoords = () => {
+        if (!STARTED) {
+          lines[0].style.color = "#60ff56";
+          lines[0].style.fontSize = "36px";
+          obj.style.backgroundImage = `url(${imgBlack.src})`;
+          obj.style.backgroundColor = "#fff";
+          STARTED = true;
+        }
+
+        generateCoords();
+        obj.style.top = `${Y}px`;
+        obj.style.left = `${X}px`;
+        obj.style.width = `${W}px`;
+        obj.style.height = `${H}px`;
+      };
+
+      window.addEventListener("resize", (e) => {
+        window.location.href = "https://youtu.be/F4HOnBNpwDs?t=104"; //teknik definite
+        /*
+        console.log("screen change! ");
+        console.log(`${HEIGHT} ${WIDTH}`);
+        obj.remove();
+        lines[0].style.color = "#ff3c3c";
+        lines[0].style.fontSize = "24px";
+        lines[0].innerHTML = "Try Full Screen! and Be prepared - Doge Master";*/
+      });
+
+      obj.addEventListener("mouseover", changeCoords);
+
+      obj.addEventListener("click", (e) => {
+        swordSound.play();
+        obj.style.backgroundColor = "#ff3c3c";
+        obj.style.backgroundImage = `url(${img.src})`;
+        obj.removeEventListener("mouseover", changeCoords);
+        lines[0].style.color = "#ff3c3c";
+        lines[0].style.fontSize = "24px";
+        lines[0].innerHTML = DEFEATED;
+        container.style.background = "url(./assets/defeated-bg.gif)";
+        container.style.backgroundSize = "cover";
+        if (!STARTED) {
+          obj.remove();
+          lines[0].innerHTML = "You Won!";
+        }
+        STARTED = false;
+      });
+
+      window.onclick = () => {
+        lines[1].innerHTML = `Moves : ${++click}`;
+      };
+    } else {
       lines[0].style.color = "#ff3c3c";
-        lines[0].style.fontSize="24px"
       lines[0].innerHTML = "Try Full Screen! and Be prepared - Doge Master";
-
-    });
-
-    obj.addEventListener("mouseover", changeCoords);
-
-    obj.addEventListener("click", (e) => {
-      //play sound
-      //autumn fall
-      obj.style.backgroundColor = "#ff3c3c";
-      obj.style.backgroundImage = `url(${img.src})`;
-      // container.style.backgroundColor="#ff3c3c"
-      obj.removeEventListener("mouseover", changeCoords);
-      lines[0].style.color = "#ff3c3c";
-        lines[0].style.fontSize="24px";
-      lines[0].innerHTML = DEFEATED;
-    });
+      window.onresize = () => {
+        window.location.reload();
+      };
+    }
   </script>
 </html>
